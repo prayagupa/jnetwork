@@ -23,7 +23,10 @@ public class Ping{
 	}
         return reachable;
     }
-    
+
+    /**
+      * set ProxyHost and proxyPort
+      */    
     public static void setProxy(){
        		System.getProperties().put("http.proxySet", "true");
 		System.getProperties().put("http.proxyHost", "10.13.222.215");
@@ -31,12 +34,16 @@ public class Ping{
     }
 
     public static void main(String[] args){
-        setProxy();
+        //setProxy();
+        System.setProperty("java.net.useSystemProxies", "true");
         try{
         	Proxy proxy = (Proxy) ProxySelector.getDefault().select(new URI("http://www.yahoo.com/")).iterator().next();
+                // socketAddress is null if setProxy is not invoked
                 InetSocketAddress iSAddress= (InetSocketAddress) proxy.address();
-	        System.out.println("HTTP_PROXY      : "+ iSAddress.getHostName());
-                System.out.println("HTTP_PROXY_PORT : "+iSAddress.getPort());
+                if(null!=iSAddress){
+	        	System.out.println("HTTP_PROXY      : "+ iSAddress.getHostName());
+	                System.out.println("HTTP_PROXY_PORT : "+iSAddress.getPort());
+                }
         }catch(Exception ee){
                 ee.printStackTrace();
         }
