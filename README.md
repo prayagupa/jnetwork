@@ -1,4 +1,4 @@
-JProxy
+jnetwork
 ======
 
 Getting Started
@@ -11,4 +11,3 @@ Change IP Address to Ping
 
 
 Then `java Ping`
-
