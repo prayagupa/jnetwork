@@ -4,10 +4,10 @@ jnetwork
 Getting Started
 ----------------
 
-`javac Ping.java`
+`javac com.prayagupa.Ping.java`
 
 
-Change IP Address to Ping
+Change IP Address to com.prayagupa.Ping
 
 
-Then `java Ping`
+Then `java com.prayagupa.Ping`
