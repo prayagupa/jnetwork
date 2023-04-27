@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+
+  redis-sentinel2:
+    build:
+      context: .
+    networks:
+      vpnet:
+        ipv4_address: 172.25.0.14
+
+networks:
+  vpnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 11.11.0.0/24
+          gateway: 11.11.0.1

@@ -32,3 +32,6 @@ PORT    STATE SERVICE
 
 Nmap done: 2 IP addresses (1 host up) scanned in 7.76 seconds
 ```
+
+
+- https://learn.microsoft.com/en-us/windows-server/networking/technologies/ipam/ipam-top

@@ -20,6 +20,8 @@ public class NetworkApp {
     }
 
     public static void main(String[] args) throws IOException {
+        System.setProperty("javax.net.debug", "ssl");
+
         // setProxy();
         System.setProperty("java.net.useSystemProxies", "true");
         try {
@@ -36,8 +38,8 @@ public class NetworkApp {
         }
 
         //should not have protocal in hostname
-        String internalHostToPing1 = "172.17.2.1";
-        String internalHostToPing2 = "wallmart.com";
+        String internalHostToPing1 = "172.17.2.1"; //
+        String internalHostToPing2 = "apple.com";
 
         SocketPortConnectivity.isHostAvailable(HOST, PORT);
 
@@ -58,6 +60,10 @@ public class NetworkApp {
 
         Network.gatewayDetails();
         Network.gateway();
+
+        IpAddress.getIpAddress();
+
+        Curl.curl("https://" + internalHostToPing2);
     }
 
 }

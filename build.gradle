@@ -10,9 +10,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
+    implementation group: 'org.fusesource', name: 'sigar', version: '1.6.4'
     implementation 'com.google.guava:guava:31.1-jre'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 }
 
 application {
@@ -24,10 +26,14 @@ tasks.named('test') {
 }
 
 jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes(
                 'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
                 'Main-Class': 'com.prayagupa.NetworkApp'
         )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }

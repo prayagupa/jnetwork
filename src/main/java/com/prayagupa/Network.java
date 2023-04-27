@@ -24,9 +24,13 @@ public class Network {
             System.out.println("Gateway: " + localAddress);
             NetworkInterface networkInterface = NetworkInterface.getByInetAddress(localAddress);
             System.out.println("Gateway interface: " + networkInterface);
-            String gateway = new String(networkInterface.getHardwareAddress());
-            System.out.println("Gateway: " + gateway);
-            return gateway;
+            if (networkInterface != null) {
+                String gateway = new String(networkInterface.getHardwareAddress());
+                System.out.println("Gateway: " + gateway);
+                return gateway;
+            }
+
+            return null;
         }
     }
 
