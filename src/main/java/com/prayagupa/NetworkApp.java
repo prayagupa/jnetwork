@@ -1,11 +1,14 @@
 package com.prayagupa;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.ProxySelector;
 import java.net.URI;
 
 public class NetworkApp {
+    private static final String HOST = "googleapis.com";
+    private static final int PORT = 443;
 
     /**
      * set ProxyHost and proxyPort
@@ -16,7 +19,7 @@ public class NetworkApp {
         System.getProperties().put("http.proxyPort", "8080");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // setProxy();
         System.setProperty("java.net.useSystemProxies", "true");
         try {
@@ -33,11 +36,28 @@ public class NetworkApp {
         }
 
         //should not have protocal in hostname
-        String hostToPing = "172.17.20.185";
-        String hostToPing2 = "127.0.0.1";
+        String internalHostToPing1 = "172.17.2.1";
+        String internalHostToPing2 = "wallmart.com";
 
-        System.out.println("Reachable " + hostToPing + ": " + Ping.ping(hostToPing, 26379));
-        System.out.println("Reachable " + hostToPing2 + ": " + Ping.ping(hostToPing2, 8080));
+        SocketPortConnectivity.isHostAvailable(HOST, PORT);
+
+        /**
+         * Canonical Host Name: sea30s08-in-f4.1e100.net
+         * Address: 142.250.69.196
+         *
+         * Non-authoritative answer:
+         * Host Name: googleapis.com
+         * Address: 142.250.69.196
+         * Canonical Host Name: sea30s10-in-x04.1e100.net
+         * Address: 38.7.248.176.64.10.8.7.0.0.0.0.0.0.32.4
+         */
+        NsLookup.nslookup(HOST);
+
+        System.out.println("Reachable " + internalHostToPing1 + ": " + Ping.ping(internalHostToPing1, 26379));
+        System.out.println("Reachable " + internalHostToPing2 + ": " + Ping.ping(internalHostToPing2, 443));
+
+        Network.gatewayDetails();
+        Network.gateway();
     }
 
 }
