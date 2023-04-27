@@ -2,12 +2,13 @@ version: '3.3'
 
 services:
 
-  redis-sentinel2:
+  jnetwork:
+    container_name: jnetwork
     build:
       context: .
     networks:
       vpnet:
-        ipv4_address: 172.25.0.14
+        ipv4_address: 11.12.0.3
 
 networks:
   vpnet:
@@ -15,5 +16,5 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 11.11.0.0/24
-          gateway: 11.11.0.1
+        - subnet: 11.12.0.0/24
+          gateway: 11.12.0.1

@@ -1,5 +1,7 @@
 ./gradlew build
-docker build -t jnetwork .
+
+docker-compose up
+## docker build -t jnetwork .
 
 ## --net=host
 #Net interface: veth5afd9f5 - veth5afd9f5
@@ -28,7 +30,7 @@ docker build -t jnetwork .
  #Gateway: /11.11.0.2
  #Gateway interface: name:eth0 (eth0)
  #Gateway: B
-docker run -it --net=lamatola-net --cpus=1 --memory=768m jnetwork
+## docker run -it --net=lamatola-net --cpus=1 --memory=768m jnetwork
 
 
 ## wont let connect to egress at all
@@ -51,3 +53,5 @@ if [ $container_id ]; then
   # shellcheck disable=SC2046
   docker rmi $(docker images 'jnetwork' -a -q)
 fi
+
+docker-compose down
