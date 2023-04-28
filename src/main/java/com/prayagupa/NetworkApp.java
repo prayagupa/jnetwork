@@ -38,7 +38,7 @@ public class NetworkApp {
         }
 
         //should not have protocal in hostname
-        String internalHostToPing1 = "172.17.2.1"; //
+        String internalHostToPing1 = "172.17.21.196"; //
         String internalHostToPing2 = "apple.com";
 
         SocketPortConnectivity.isHostAvailable(HOST, PORT);

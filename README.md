@@ -68,9 +68,61 @@ java -jar build/libs/jnetwork.jar
 
 ```
 
-Nmap example: 
+Routing table
+---
+
+```bash
+## https://vitux.com/how-to-view-the-network-routing-table-in-ubuntu/
+apt-get update
+apt-get install net-tools
+
+## on a default network
+root@49c334e09fb3:/# netstat -rn
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         172.17.0.1      0.0.0.0         UG        0 0          0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U         0 0          0 eth0
+
+root@49c334e09fb3:/# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.17.0.1      0.0.0.0         UG    0      0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 eth0
+
+
+## on a custom bridge network
+root@lima-docker-lima:/# netstat -rn
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         10.0.2.2        0.0.0.0         UG        0 0          0 tap0
+10.0.2.0        0.0.0.0         255.255.255.0   U         0 0          0 tap0
+11.11.0.0       0.0.0.0         255.255.255.0   U         0 0          0 br-87bbbe792b34
+127.0.0.0       0.0.0.0         255.255.0.0     U         0 0          0 br-4504ef4fd65b
+172.17.0.0      0.0.0.0         255.255.0.0     U         0 0          0 docker0
+172.18.0.0      0.0.0.0         255.255.0.0     U         0 0          0 br-e965599ad943
+192.168.80.0    0.0.0.0         255.255.240.0   U         0 0          0 br-1aef6168fa68
+```
+
+```bash
+root@lima-docker-lima:/# cat /etc/resolv.conf
+nameserver 10.0.2.3
+```
+
+Nmap
+--
+
 - verifies the HOST exists and available ports
 - does not mean host machine can reach out to the remote host
+
+```bash
+On container
+$ apt-get update
+$ apt-get install telnet
+
+root@49c334e09fb3:/# telnet 172.17.21.196 26379
+Trying 172.17.21.196...
+telnet: Unable to connect to remote host: No route to host
+```
 
 ```bash
 $ nmap 443 mydns.com
@@ -89,3 +141,17 @@ Nmap done: 2 IP addresses (1 host up) scanned in 7.76 seconds
 ```
 
 - https://learn.microsoft.com/en-us/windows-server/networking/technologies/ipam/ipam-top
+
+Config
+--
+
+```bash
+## on bridge network
+root@lima-docker-lima:/# cat /etc/resolv.conf
+nameserver 10.0.2.3
+
+
+root@lima-docker-lima:/# traceroute -d 172.17.21.196
+traceroute to 172.17.21.196 (172.17.21.196), 30 hops max, 60 byte packets
+setsockopt SO_DEBUG: Permission denied
+```
