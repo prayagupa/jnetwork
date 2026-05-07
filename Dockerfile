@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM eclipse-temurin:21-jre
 LABEL name=jnetwork
 
 RUN mkdir -p /usr/local/app && apt-get update && apt-get install -y telnet net-tools traceroute
